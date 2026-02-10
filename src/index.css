@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Google Sans", sans-serif;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer components {
+
+  .bottom-item {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    border-radius: calc(infinity * 1px);
+    cursor: pointer;
+  }
+  .bottom-item:hover {
+    background-color: #e6eaf1;
+  }
+  
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+}
