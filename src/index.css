@@ -24,6 +24,30 @@
   .bottom-item:hover {
     background-color: #e6eaf1;
   }
+
+  .main .card {
+    height: 200px;
+    padding: 15px;
+    background-color: #f0f4f9;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+  }
+  .main .card svg {
+    width: 35px;
+    height: 35px;
+    padding: 5px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+  }
+  .main .card p {
+    color: #585858;
+    font-size: 17px;
+  }
+  .main .card:hover {
+    background-color: #dfe4ea;
+  }
   
 }
 
