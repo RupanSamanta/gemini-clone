@@ -55,3 +55,7 @@
   min-height: 100vh;
   display: flex;
 }
+
+body {
+  background-color: #fff;
+}
