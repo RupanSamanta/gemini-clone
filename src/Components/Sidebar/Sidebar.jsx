@@ -1,5 +1,5 @@
-import { FaBars, FaPlus, FaGear, FaClockRotateLeft, FaRegMessage } from "react-icons/fa6";
-import { FaRegQuestionCircle } from "react-icons/fa";
+import { LuMenu, LuPlus, LuSettings, LuMessageSquare, LuMessageCircleQuestion, LuHistory } from "react-icons/lu";
+
 import RecentEntry from "./RecentEntry";
 import { useState } from "react";
 
@@ -7,7 +7,7 @@ const Sidebar = () => {
   
   const iconsStyle = {
     color: "#000",
-    fontSize: "1.25rem",
+    fontSize: "1.35rem",
   };
 
   const [extended, setExtended] = useState(false);
@@ -22,15 +22,15 @@ const Sidebar = () => {
           className="menu-bar size-fit px-3.75 py-3.75 cursor-pointer rounded-full hover:bg-[#e6eaf1]"
           onClick={() => setExtended((prev) => !prev)}
         >
-          <FaBars style={iconsStyle} className="menu" />
+          <LuMenu style={iconsStyle} className="menu" />
         </div>
         <div className="new-chat mt-8.5 inline-flex items-center gap-2.5 px-3.75 py-3.75 bg-[#e6eaf1] rounded-full text-[14px] text-gray-500 cursor-pointer">
-          <FaPlus style={iconsStyle} />
+          <LuPlus style={iconsStyle} />
           {extended ? <span>New Chat</span> : null}
         </div>
         <div className={`recent-chat flex-col ${extended ? "flex" : "hidden"}`}>
           <div className="recent-title mt-8.5 mb-4 px-2.5 flex justify-start items-center gap-2.5 text-[14px]">
-            <FaRegMessage style={iconsStyle} />
+            <LuMessageSquare style={iconsStyle} />
             <span>Recent</span>
           </div>
           <div className="recent-chat-entry">
@@ -42,15 +42,15 @@ const Sidebar = () => {
       </div>
       <div className="bottom flex flex-col text-[14px]">
         <div className="bottom-item">
-          <FaRegQuestionCircle style={iconsStyle} />
+          <LuMessageCircleQuestion style={iconsStyle} />
           {extended ? <span>Help</span> : null}
         </div>
         <div className="bottom-item">
-          <FaClockRotateLeft style={iconsStyle} />
+          <LuHistory style={iconsStyle} />
           {extended ? <span>Activity</span> : null}
         </div>
         <div className="bottom-item">
-          <FaGear style={iconsStyle} />
+          <LuSettings style={iconsStyle} />
           {extended ? <span>Settings</span> : null}
         </div>
       </div>
