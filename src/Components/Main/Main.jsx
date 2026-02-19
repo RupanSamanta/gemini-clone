@@ -1,6 +1,4 @@
-import { FaRegCompass, FaRegLightbulb, FaCode } from "react-icons/fa6";
-import { LuNotebookText, LuMic, LuSendHorizontal } from "react-icons/lu";
-import { MdOutlineAddPhotoAlternate } from "react-icons/md";
+import { LuCompass, LuNotebookText, LuMic, LuLightbulb, LuSendHorizontal, LuCodeXml, LuImagePlus } from "react-icons/lu";
 
 const Main = () => {
     return (
@@ -17,7 +15,7 @@ const Main = () => {
                 <div className="cards grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-3.75 p-5">
                     <div className="card">
                         <p>Suggest beautiful places to visit</p>
-                        <FaRegCompass />
+                        <LuCompass />
                     </div>
                     <div className="card">
                         <p>Briefly summarize the concept : Generative AI</p>
@@ -26,23 +24,23 @@ const Main = () => {
 
                     <div className="card">
                         <p>Brainstorm team bonding activities for our work team</p>
-                        <FaRegLightbulb />
+                        <LuLightbulb />
                     </div>
                     <div className="card">
                         <p>Improve the readability of the code</p>
-                        <FaCode />
+                        <LuCodeXml />
                     </div>
                 </div>
                 <div className="main-bottom absolute bottom-0 w-full max-w-225 p-[0_2px] m-auto">
-                    <div className="search-box flex items-center justify-between gap-5 bg-[#f0f4f9] rounded-[50px] p-[10px 20px]">
-                        <input type="text" name="search" id="search-input" placeholder="Ask anything..." />
-                        <div className="&> w-6 cursor-pointer">
-                            <MdOutlineAddPhotoAlternate />
+                    <div className="search-box flex items-center justify-between gap-5 bg-[#f0f4f9] rounded-[50px] p-[10px_20px]">
+                        <input type="text" name="search" id="search-input" placeholder="Ask anything..." className="flex-1 bg-transparent border-none outline-none p-1.5 text-[17px] font-medium" />
+                        <div className="icons flex items-center gap-3.75">
+                            <LuImagePlus />
                             <LuMic />
                             <LuSendHorizontal />
                         </div>
                     </div>
-                    <div className="bottom-info">
+                    <div className="bottom-info text-[13px] m-[15px_auto] text-center font-light text-[#585858]">
                         <p>Gemini may display inaccurate info, including about people, so double-check its responses. Your privacy and Gemini Apps</p>
                     </div>
                 </div>

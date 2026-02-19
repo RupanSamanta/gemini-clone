@@ -1,14 +1,10 @@
-import { FaBars } from "react-icons/fa6";
-import { FaPlus } from "react-icons/fa6";
+import { FaBars, FaPlus, FaGear, FaClockRotateLeft, FaRegMessage } from "react-icons/fa6";
 import { FaRegQuestionCircle } from "react-icons/fa";
-import { FaGear } from "react-icons/fa6";
-import { FaClockRotateLeft } from "react-icons/fa6";
-import { FaRegMessage } from "react-icons/fa6";
-
 import RecentEntry from "./RecentEntry";
 import { useState } from "react";
 
 const Sidebar = () => {
+  
   const iconsStyle = {
     color: "#000",
     fontSize: "1.25rem",
@@ -38,8 +34,8 @@ const Sidebar = () => {
             <span>Recent</span>
           </div>
           <div className="recent-chat-entry">
-            {["What is JSX", "What is REact"].map((title) => (
-              <RecentEntry title={title} />
+            {["What is JSX", "What is REact"].map((title, index) => (
+              <RecentEntry title={title} key={index}/>
             ))}
           </div>
         </div>
