@@ -1,59 +1,51 @@
-// const API_KEY = 'AIzaSyDfk4RZ4w7_eEmfNRwPUNt4coOHeAK0btg';
+// const apiKey = "AIzaSyCzBjWaEswQL12ImjSmhUUON9B0tFFJvkg";
 
-// import {GoogleGenAI, FunctionCallingConfigMode, FunctionDeclaration, Type} from '@google/genai';
-// const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+// async function getChatResponse(prompt) {
+    
+//     // Priority 1: Newest Model | Priority 2: Stable Backup
+//     const models = ["gemini-3-flash-preview", "gemini-2.5-flash"];
+    
+//     for (let model of models) {
+//         console.log(`Attempting request with ${model}...`);
+//         const startTime = performance.now();
 
-// async function main() {
-//   const controlLightDeclaration: FunctionDeclaration = {
-//     name: 'controlLight',
-//     parametersJsonSchema: {
-//       type: 'object',
-//       properties:{
-//         brightness: {
-//           type:'number',
-//         },
-//         colorTemperature: {
-//           type:'string',
-//         },
-//       },
-//       required: ['brightness', 'colorTemperature'],
-//     },
-//   };
+//         try {
+//             const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+//                 method: 'POST',
+//                 headers: { "Content-Type": "application/json", "X-goog-api-key": apiKey },
+//                 body: JSON.stringify({ "contents": [{ "parts": [{ "text": prompt }] }] })
+//             });
 
-//   const ai = new GoogleGenAI({apiKey: GEMINI_API_KEY});
-//   const response = await ai.models.generateContent({
-//     model: 'gemini-2.5-flash',
-//     contents: 'Dim the lights so the room feels cozy and warm.',
-//     config: {
-//       toolConfig: {
-//         functionCallingConfig: {
-//           // Force it to call any function
-//           mode: FunctionCallingConfigMode.ANY,
-//           allowedFunctionNames: ['controlLight'],
+//             const data = await res.json();
+//             const responseTime = (performance.now() - startTime).toFixed(2);
+
+//             if (res.status === 200) {
+//                 console.log(`✅ Success! [${model}] Time: ${responseTime}ms`);
+//                 return data.candidates[0].content.parts[0].text;
+//             } 
+            
+//             if (res.status === 503) {
+//                 console.warn(`⚠️ ${model} is busy (503). Trying next model...`);
+//                 continue; // Move to the next model in the list
+//             }
+
+//             console.error(`❌ Error ${res.status}:`, data.error.message);
+//             break; 
+
+//         } catch (err) {
+//             console.error("Network failed:", err);
+//             break;
 //         }
-//       },
-//       tools: [{functionDeclarations: [controlLightDeclaration]}]
 //     }
-//   });
-
-//   console.log(response.functionCalls);
+//     return "I'm a bit overwhelmed right now. Please try again in a minute!";
 // }
 
-// main();
+// // async function listMyModels() {
+// //     const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
+// //     const data = await res.json();
+// //     console.log("Available models:", data.models.map(m => m.name));
+// // }
 
+// console.log(await getChatResponse("what is react js?"));
 
-// // curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent" \
-// //   -H 'Content-Type: application/json' \
-// //   -H 'X-goog-api-key: AIzaSyCvMGFqnlhtmSaVd6VSvoVqgtesQYKxXCQ' \
-// //   -X POST \
-// //   -d '{
-// //     "contents": [
-// //       {
-// //         "parts": [
-// //           {
-// //             "text": "Explain how AI works in a few words"
-// //           }
-// //         ]
-// //       }
-// //     ]
-// //   }'
+// //listMyModels();
