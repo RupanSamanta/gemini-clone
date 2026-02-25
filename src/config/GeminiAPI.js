@@ -1,6 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: "AIzaSyCzBjWaEswQL12ImjSmhUUON9B0tFFJvkg" });
+const ai = new GoogleGenAI({ apiKey: "AIzaSyC-eSyWHsCoVKaIB5ya5XCTuZ1Je8HXd6I" });
 
 const sendMessage = async (prompt) => {
   const startTime = performance.now();
