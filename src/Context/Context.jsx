@@ -30,7 +30,6 @@ const AppProvider = ({ children }) => {
             setLoading(true);
             setRecentPrompts(input);
             const response = await sendMessage(prompt);
-            console.log(response);
             setResult(response);
             setLoading(false);
         }

@@ -3,6 +3,7 @@ import { LuCompass, LuNotebookText, LuMic, LuLightbulb, LuSendHorizontal, LuCode
 import { AppContext } from "../../Context/AppContext";
 import Card from "./Card";
 import ReactMarkdown from 'react-markdown';
+import Loader from "./Loader";
 
 const Main = () => {
 
@@ -21,7 +22,7 @@ const Main = () => {
                             <p><span className="bg-size-[100%] bg-linear-16 from-[#4b90ff] to-[#ff5546] bg-clip-text text-transparent">Hello, Dev.</span></p>
                             <p>How can I help you today?</p>
                         </div>
-                        <div className="cards grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-3.75 p-5">
+                        <div className="card-container grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-3.75 p-5">
                             {
                                 [
                                     {
@@ -51,20 +52,7 @@ const Main = () => {
                                 <span className="inline-block size-7 rounded-full bg-[url(/gemini-icon.svg)] bg-cover bg-no-repeat bg-center shrink-0"></span>
                                 {
                                     loading ?
-                                        <div className="loader w-full flex flex-col gap-2.5">
-                                            <div className="loader w-full flex flex-col gap-2.5">
-                                                {[-100, 0, 100].map((delay, index) => (
-                                                    <div
-                                                        key={index}
-                                                        className="w-full h-3 bg-[#f6f7f8] bg-linear-to-r from-[#9ed7ff] via-[#ffffff] to-[#9ed7ff] rounded-xl"
-                                                        style={{
-                                                            backgroundSize: '200% 100%',
-                                                            animation: `pulse 2s infinite ${delay}ms, shimmer 2s infinite linear ${delay}ms`
-                                                        }}
-                                                    ></div>
-                                                ))}
-                                            </div>
-                                        </div>
+                                        <Loader />
                                         : <p>
                                             <ReactMarkdown>{result}</ReactMarkdown>
                                         </p>
