@@ -2,8 +2,7 @@ import { useContext } from "react";
 import { LuCompass, LuNotebookText, LuMic, LuLightbulb, LuSendHorizontal, LuCodeXml, LuImagePlus } from "react-icons/lu";
 import { AppContext } from "../../Context/AppContext";
 import Card from "./Card";
-import ReactMarkdown from 'react-markdown';
-import Loader from "./Loader";
+import Result from "./Result";
 
 const Main = () => {
 
@@ -39,27 +38,11 @@ const Main = () => {
                                         title: "Improve the readability of the code",
                                         icon: <LuCodeXml />
                                     }
-                                ].map((item, index) => <Card key={index} title={item.title} icon={item.icon} />)
+                                ].map((item, index) => <Card key={index} title={item.title} icon={item.icon} onClick={() => { setInput(item.title); onSent(item.title) }} />)
                             }
                         </div>
-                    </> : (
-                        <div className="result-container p-[0_5%] max-h-[70vh] overflow-y-auto [&::-webkit-scrollbar]:hidden">
-                            <div className="result-title m-[40px_0] flex items-start gap-5 flex-row-reverse">
-                                <span className="inline-block size-7 rounded-full bg-[url(/user_icon.png)] bg-cover bg-no-repeat bg-center"></span>
-                                <p className="bg-gray-100 p-2.5 rounded-2xl">{recentPrompts}</p>
-                            </div>
-                            <div className="result-data flex items-start gap-5">
-                                <span className="inline-block size-7 rounded-full bg-[url(/gemini-icon.svg)] bg-cover bg-no-repeat bg-center shrink-0"></span>
-                                {
-                                    loading ?
-                                        <Loader />
-                                        : <p>
-                                            <ReactMarkdown>{result}</ReactMarkdown>
-                                        </p>
-                                }
-                            </div>
-                        </div>
-                    )
+                    </> :
+                        <Result />
                 }
 
                 <div className="main-bottom absolute bottom-0 w-full max-w-225 p-[0_2px] m-auto">

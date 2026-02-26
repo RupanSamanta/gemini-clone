@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import sendMessage from '../config/GeminiAPI.js';
+import sendMessage from '../config/Chat.js';
 import { AppContext } from './AppContext.js';
 
 const AppProvider = ({ children }) => {
@@ -24,12 +24,12 @@ const AppProvider = ({ children }) => {
         result,
         setResult,
         onSent: async (prompt) => {
-            setInput("");
-            setResult("");
             setShowResults(true);
             setLoading(true);
-            setRecentPrompts(input);
-            const response = await sendMessage(prompt);
+            setRecentPrompts(prompt);
+            setInput("");
+            setResult("");
+            const response = await sendMessage(prompt);            
             setResult(response);
             setLoading(false);
         }
