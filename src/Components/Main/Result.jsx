@@ -1,6 +1,7 @@
 import { useContext, useMemo } from "react";
 import { AppContext } from "../../Context/AppContext";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import Loader from "./Loader";
 import { formatGeminiResponse } from "../../utils/formatGeminiResponse";
 
@@ -34,14 +35,38 @@ const markdownComponents = {
       {children}
     </blockquote>
   ),
-  code: ({ inline, children }) =>
-    inline ? (
-      <code className="bg-[#eef2ff] text-[#1e40af] px-1.5 py-0.5 rounded text-sm">{children}</code>
-    ) : (
-      <code className="block bg-[#111827] text-[#f9fafb] rounded-xl p-4 text-sm overflow-x-auto my-4">
+  table: ({ children }) => (
+    <div className="my-4 overflow-x-auto rounded-xl border border-[#e5e7eb]">
+      <table className="w-full border-collapse text-left">{children}</table>
+    </div>
+  ),
+  thead: ({ children }) => <thead className="bg-[#f8fafc]">{children}</thead>,
+  tbody: ({ children }) => <tbody className="bg-white">{children}</tbody>,
+  tr: ({ children }) => <tr className="border-b border-[#e5e7eb]">{children}</tr>,
+  th: ({ children }) => (
+    <th className="px-4 py-3 text-sm font-semibold text-[#1f2937]">{children}</th>
+  ),
+  td: ({ children }) => (
+    <td className="px-4 py-3 text-sm leading-6 text-[#374151] align-top">{children}</td>
+  ),
+  pre: ({ children }) => (
+    <pre className="bg-[#0f172a] text-[#e2e8f0] rounded-xl p-4 text-sm overflow-x-auto my-4 leading-6">
+      {children}
+    </pre>
+  ),
+  code: ({ inline, className, children }) => {
+    const isBlock = !inline;
+
+    if (isBlock) {
+      return <code className="font-mono">{children}</code>;
+    }
+
+    return (
+      <code className="bg-[#eef2ff] text-[#1e40af] px-1.5 py-0.5 rounded text-sm font-mono">
         {children}
       </code>
-    ),
+    );
+  },
 };
 
 function Result() {
@@ -60,7 +85,9 @@ function Result() {
           <Loader />
         ) : (
           <div className="results-text w-full">
-            <ReactMarkdown components={markdownComponents}>{formattedResult}</ReactMarkdown>
+            <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
+              {formattedResult}
+            </ReactMarkdown>
           </div>
         )}
       </div>
