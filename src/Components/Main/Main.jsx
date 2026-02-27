@@ -6,7 +6,12 @@ import Result from "./Result";
 
 const Main = () => {
 
-    const { input, setInput, recentPrompts, setRecentPrompts, previousPrompts, setPreviousPrompts, showResults, setShowResults, loading, setLoading, result, setResult, onSent } = useContext(AppContext);
+    const { input, setInput,
+            showResults,
+            onSent 
+    } = useContext(AppContext);
+
+    const { loading } = useContext(AppContext);
 
     return (
         <div className="main flex-1 min-h-screen pb-[15vh] relative">
@@ -38,7 +43,7 @@ const Main = () => {
                                         title: "Improve the readability of the code",
                                         icon: <LuCodeXml />
                                     }
-                                ].map((item, index) => <Card key={index} title={item.title} icon={item.icon} onClick={() => { setInput(item.title); onSent(item.title) }} />)
+                                ].map((item, index) => <Card key={index} title={item.title} icon={item.icon} onClick={() => { setInput(item.title); onSent(item.title) }} disabled={loading} />)
                             }
                         </div>
                     </> :
@@ -47,11 +52,9 @@ const Main = () => {
 
                 <div className="main-bottom absolute bottom-0 w-full max-w-225 p-[0_2px] m-auto">
                     <div className="search-box flex items-center justify-between gap-5 bg-[#f0f4f9] rounded-[50px] p-[10px_20px]">
-                        <input type="text" onChange={(e) => setInput(e.target.value)} value={input} name="search" id="search-input" placeholder="Ask anything..." className="flex-1 bg-transparent border-none outline-none p-1.5 text-[17px]" />
+                        <input type="text" onChange={(e) => setInput(e.target.value)} value={input} name="search" id="search-input" placeholder="Ask anything..." disabled={loading} className="flex-1 bg-transparent border-none outline-none p-1.5 text-[17px]" />
                         <div className="icons flex items-center gap-3.75">
-                            <LuImagePlus />
-                            <LuMic />
-                            <LuSendHorizontal onClick={() => { onSent(input) }} />
+                            <LuSendHorizontal onClick={() => { onSent(input) }} style={{ opacity: loading ? 0.5 : 1, cursor: loading ? 'not-allowed' : 'pointer' }} />
                         </div>
                     </div>
                     <div className="bottom-info text-[13px] m-[15px_auto] text-center font-light text-[#585858]">

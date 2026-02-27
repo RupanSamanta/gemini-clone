@@ -27,6 +27,7 @@ const AppProvider = ({ children }) => {
             setShowResults(true);
             setLoading(true);
             setRecentPrompts(prompt);
+            setPreviousPrompts(prev => [...prev, prompt]);
             setInput("");
             setResult("");
             const response = await sendMessage(prompt);            

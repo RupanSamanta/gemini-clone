@@ -1,7 +1,7 @@
 import { LuMenu, LuPlus, LuSettings, LuMessageSquare, LuMessageCircleQuestion, LuHistory } from "react-icons/lu";
-
 import RecentEntry from "./RecentEntry";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AppContext } from "../../Context/AppContext";
 
 const Sidebar = () => {
   
@@ -11,7 +11,8 @@ const Sidebar = () => {
   };
 
   const [extended, setExtended] = useState(false);
-
+  const { previousPrompts, setLoading, setShowResults } = useContext(AppContext);
+  
   return (
     <div
       className={`sidebar ${extended ? "w-50" : "w-auto"
@@ -24,7 +25,7 @@ const Sidebar = () => {
         >
           <LuMenu style={iconsStyle} className="menu" />
         </div>
-        <div className="new-chat mt-8.5 inline-flex items-center gap-2.5 px-3.75 py-3.75 bg-[#e6eaf1] rounded-full text-[14px] text-gray-500 cursor-pointer">
+        <div className="new-chat mt-8.5 inline-flex items-center gap-2.5 px-3.75 py-3.75 bg-[#e6eaf1] rounded-full text-[14px] text-gray-500 cursor-pointer" onClick={() => { setLoading(false); setShowResults(false); }}>
           <LuPlus style={iconsStyle} />
           {extended ? <span>New Chat</span> : null}
         </div>
@@ -34,8 +35,8 @@ const Sidebar = () => {
             <span>Recent</span>
           </div>
           <div className="recent-chat-entry">
-            {["What is JSX", "What is REact"].map((title, index) => (
-              <RecentEntry title={title} key={index}/>
+            {previousPrompts.map((title, index) => (
+              <RecentEntry title={title} key={index} />
             ))}
           </div>
         </div>
