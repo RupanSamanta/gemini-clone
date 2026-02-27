@@ -1,16 +1,91 @@
-# React + Vite
+# Gemini Clone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + Vite web app that mimics a Gemini-style chat interface using the Google GenAI SDK.
 
-Currently, two official plugins are available:
+## Features
+- Prompt-based chat UI with loading and typing effect
+- Markdown rendering for AI responses (`react-markdown` + `remark-gfm`)
+- Reusable context state management for chat flow
+- Retry handling for API rate limits (HTTP 429)
+- Tailwind CSS based styling
+- GitHub Pages deploy script
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
+- React 19
+- Vite 7
+- Tailwind CSS 4
+- `@google/genai`
+- `react-markdown` + `remark-gfm`
+- `react-icons`
 
-## React Compiler
+## Prerequisites
+- Node.js 18+
+- npm
+- A Google Gemini API key
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Environment Variables
+Create a `.env` file in the project root and add:
 
-## Expanding the ESLint configuration
+```env
+VITE_GEMINI_API_KEY=your_api_key_here
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The key is read in `src/config/GeminiAPI.js` via `import.meta.env.VITE_GEMINI_API_KEY`.
+
+## Getting Started
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Start development server:
+
+```bash
+npm run dev
+```
+
+3. Open the local URL shown by Vite (usually `http://localhost:5173`).
+
+## Available Scripts
+- `npm run dev` - Start the Vite development server
+- `npm run build` - Build production assets into `dist`
+- `npm run preview` - Preview production build locally
+- `npm run deploy` - Deploy `dist` to GitHub Pages (runs `predeploy` first)
+
+## Project Structure
+
+```text
+src/
+  Components/
+    Main/
+    Sidebar/
+  Context/
+    AppContext.js
+    Context.jsx
+  config/
+    GeminiAPI.js
+    Chat.js
+  utils/
+    formatGeminiResponse.js
+```
+
+## How Chat Requests Work
+1. UI calls `onSent(prompt)` from `Context.jsx`
+2. `onSent` delegates to `sendMessage(prompt)` in `src/config/Chat.js`
+3. `Chat.js` uses the client from `src/config/GeminiAPI.js`
+4. Response text is saved in context state and rendered in `Result.jsx`
+
+## Deployment (GitHub Pages)
+This project includes `gh-pages` setup and a `homepage` field in `package.json`.
+
+Deploy with:
+
+```bash
+npm run deploy
+```
+
+## Notes
+- Never commit real API keys.
+- If rate-limited, the app retries automatically with a short backoff.
+- Model currently used: `gemini-3-flash-preview`.
