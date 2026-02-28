@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { LuCompass, LuNotebookText, LuMic, LuLightbulb, LuSendHorizontal, LuCodeXml, LuImagePlus } from "react-icons/lu";
 import { AppContext } from "../../Context/AppContext";
 import Card from "./Card";
-import Result from "./Result";
+import Result from "../Result/Result";
 
 const Main = () => {
 
