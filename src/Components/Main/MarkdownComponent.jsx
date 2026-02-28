@@ -1,5 +1,8 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
 
 const markdownComponents = {
     h1: ({ children }) => (
@@ -75,7 +78,11 @@ const markdownComponents = {
 
 function MarkdownComponent({ typedResult }) {
     return (
-        <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
+        <ReactMarkdown
+            remarkPlugins={[remarkGfm, remarkMath]}
+            rehypePlugins={[rehypeKatex]}
+            components={markdownComponents}
+        >
             {typedResult}
         </ReactMarkdown>
     )

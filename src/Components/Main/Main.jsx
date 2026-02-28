@@ -54,7 +54,7 @@ const Main = () => {
                     <div className="search-box flex items-center justify-between gap-5 bg-[#f0f4f9] rounded-[50px] p-[10px_20px]">
                         <input type="text" onChange={(e) => setInput(e.target.value)} value={input} name="search" id="search-input" placeholder="Ask anything..." disabled={loading} className="flex-1 bg-transparent border-none outline-none p-1.5 text-[17px]" />
                         <div className="icons flex items-center gap-3.75">
-                            <LuSendHorizontal onClick={() => { onSent(input) }} style={{ opacity: loading ? 0.5 : 1, cursor: loading ? 'not-allowed' : 'pointer' }} />
+                            <LuSendHorizontal onClick={() => { onSent(input) }} style={{ opacity: loading || input.trim() === '' ? 0.5 : 1, cursor: loading || input.trim() === '' ? 'not-allowed' : 'pointer' }} />
                         </div>
                     </div>
                     <div className="bottom-info text-[13px] m-[15px_auto] text-center font-light text-[#585858]">
