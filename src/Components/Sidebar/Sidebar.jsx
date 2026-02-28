@@ -14,7 +14,7 @@ const Sidebar = () => {
   };
 
   const [extended, setExtended] = useState(false);
-  const { previousPrompts, setLoading, setShowResults } = useContext(AppContext);
+  const { history, setLoading, setShowResults, setResults, setChatId, setHistory } = useContext(AppContext);
 
   return (
     <div
@@ -27,7 +27,25 @@ const Sidebar = () => {
         >
           <LuMenu style={iconsStyle} className="menu" />
         </div>
-        <div className="new-chat mt-8.5 inline-flex items-center gap-2.5 px-3.75 py-3.75 bg-[#e6eaf1] rounded-full text-[14px] text-gray-500 cursor-pointer whitespace-nowrap" onClick={() => { setLoading(false); setShowResults(false); }}>
+        <div className="new-chat mt-8.5 inline-flex items-center gap-2.5 px-3.75 py-3.75 bg-[#e6eaf1] rounded-full text-[14px] text-[#585858] cursor-pointer whitespace-nowrap"
+          onClick={() => {
+            setLoading(false);
+            setShowResults(false);
+            setChatId(null);
+            setResults([]);
+            setHistory(prev => {
+              const hasPendingChat = prev.some(chat => chat.id === null);
+              if (hasPendingChat) return prev;
+              return [
+                ...prev,
+                {
+                  id: null,
+                  title: "",
+                  messages: []
+                }
+              ];
+            });
+          }}>
           <LuPlus style={iconsStyle} />
           {extended ? <span>New Chat</span> : null}
         </div>
@@ -36,10 +54,10 @@ const Sidebar = () => {
             <LuMessageSquare style={iconsStyle} />
             <span>Recent</span>
           </div>
-          <div className="recent-chat-entry">
+          <div className="recent-chat-entry text-[#585858]">
             {
-              previousPrompts.map((title, index) => (
-                <RecentEntry title={title} key={index} />
+              history.map((chat, index) => (
+                <RecentEntry title={chat.title} key={index} />
               ))
             }
           </div>
