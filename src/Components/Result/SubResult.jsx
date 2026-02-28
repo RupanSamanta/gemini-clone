@@ -1,28 +1,39 @@
-import Loader from "../Main/Loader.jsx";
-import MarkdownComponent from "./MarkdownComponent.jsx";
-import { useContext } from "react";
-import { AppContext } from "../../Context/AppContext.js";
+import { useEffect, useMemo, useState } from "react";
+import { formatGeminiResponse } from "../../utils/formatGeminiResponse.js";
+import UserPrompt from "./UserPrompt";
+import GeminiResponse from "./GeminiResponse";
+import MarkdownComponent from "./MarkdownComponent";
 
-function SubResult( { recentPrompts, typedResult } ) {
-    const { loading } = useContext(AppContext);
+function SubResult({ recentPrompts, response, load }) {
+    const formatted = useMemo(() => formatGeminiResponse(response), [response]);
+    const [typed, setTyped] = useState("");
+
+    useEffect(() => {
+        if (load) {
+            setTyped("");
+            return;
+        }
+        if (!formatted) {
+            setTyped("");
+            return;
+        }
+        let index = 0;
+        const timer = setInterval(() => {
+            index += 2;
+            setTyped(formatted.slice(0, index));
+            if (index >= formatted.length) {
+                clearInterval(timer);
+            }
+        }, 10);
+        return () => clearInterval(timer);
+    }, [load, formatted]);
+
     return (
         <div className="sub-result">
-            <div className="result-title m-[40px_0] flex items-start gap-5 flex-row-reverse">
-                <span className="inline-block size-7 rounded-full bg-[url(/user_icon.png)] bg-cover bg-no-repeat bg-center"></span>
-                <p className="recent-prompts bg bg-[#e9eef6] p-2.5 rounded-xl">{recentPrompts}</p>
-            </div>
-            <div className="result-data flex items-start gap-5">
-                <span className={`inline-block size-7 rounded-full bg-[url(/gemini-icon.svg)] bg-cover bg-no-repeat bg-center shrink-0 ${loading ? "animate-[spin_1.5s_ease-in-out_infinite]" : ""}`}></span>
-                {loading ? (
-                    <Loader />
-                ) : (
-                    <div className="results-text w-full">
-                        <MarkdownComponent typedResult={typedResult} />
-                    </div>
-                )}
-            </div>
+            <UserPrompt recentPrompts={recentPrompts} />
+            <GeminiResponse display={<MarkdownComponent typedResult={typed} />} load={load} />
         </div>
-    )
+    );
 }
 
-export default SubResult
+export default SubResult;
