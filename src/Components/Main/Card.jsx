@@ -6,7 +6,7 @@ function Card({ title, icon, onClick }) {
     });
 
     return (
-        <div className="card h-50 p-3.75 bg-[#f0f4f9] rounded-xl relative cursor-pointer hover:bg-[#dfe4ea]" onClick={onClick}>
+        <div className="card h-50 p-3.75 bg-[#f0f4f9] rounded-xl relative cursor-pointer hover:bg-[#dfe4ea] transition-all duration-300 ease-in-out" onClick={onClick}>
             <p className="text-[17px] text-[#585858]">{title}</p>
             {iconElement}
         </div>

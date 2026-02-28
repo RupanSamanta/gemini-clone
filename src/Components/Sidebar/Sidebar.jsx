@@ -8,6 +8,7 @@ const Sidebar = () => {
   const iconsStyle = {
     color: "#000",
     fontSize: "1.35rem",
+    flexShrink: 0,
   };
 
   const [extended, setExtended] = useState(false);
@@ -15,8 +16,7 @@ const Sidebar = () => {
   
   return (
     <div
-      className={`sidebar ${extended ? "w-50" : "w-auto"
-        }  min-h-screen flex flex-col justify-between bg-[#f0f4f9] py-6.25 px-3.75`}
+      className={`sidebar ${extended ? "w-50" : "w-[81.6px]"}  min-h-screen flex flex-col justify-between bg-[#f0f4f9] py-6.25 px-3.75 transition-all duration-300 ease-in-out`}
     >
       <div className="top">
         <div
@@ -25,7 +25,7 @@ const Sidebar = () => {
         >
           <LuMenu style={iconsStyle} className="menu" />
         </div>
-        <div className="new-chat mt-8.5 inline-flex items-center gap-2.5 px-3.75 py-3.75 bg-[#e6eaf1] rounded-full text-[14px] text-gray-500 cursor-pointer" onClick={() => { setLoading(false); setShowResults(false); }}>
+        <div className="new-chat mt-8.5 inline-flex items-center gap-2.5 px-3.75 py-3.75 bg-[#e6eaf1] rounded-full text-[14px] text-gray-500 cursor-pointer whitespace-nowrap" onClick={() => { setLoading(false); setShowResults(false); }}>
           <LuPlus style={iconsStyle} />
           {extended ? <span>New Chat</span> : null}
         </div>
