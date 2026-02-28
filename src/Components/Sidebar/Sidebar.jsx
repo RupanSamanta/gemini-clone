@@ -4,16 +4,18 @@ import { useContext, useState } from "react";
 import { AppContext } from "../../Context/AppContext";
 
 const Sidebar = () => {
-  
+
   const iconsStyle = {
     color: "#000",
-    fontSize: "1.35rem",
+    width: "22px",
+    height: "22px",
     flexShrink: 0,
+    stroke: "#585858"
   };
 
   const [extended, setExtended] = useState(false);
   const { previousPrompts, setLoading, setShowResults } = useContext(AppContext);
-  
+
   return (
     <div
       className={`sidebar ${extended ? "w-50" : "w-[81.6px]"}  min-h-screen flex flex-col justify-between bg-[#f0f4f9] py-6.25 px-3.75 transition-all duration-300 ease-in-out`}
@@ -30,30 +32,32 @@ const Sidebar = () => {
           {extended ? <span>New Chat</span> : null}
         </div>
         <div className={`recent-chat flex-col ${extended ? "flex" : "hidden"}`}>
-          <div className="recent-title mt-8.5 mb-4 px-2.5 flex justify-start items-center gap-2.5 text-[14px]">
+          <div className="recent-title mt-8.5 mb-4 px-2.5 flex justify-start items-center gap-2.5 text-[14px] text-[#585858]">
             <LuMessageSquare style={iconsStyle} />
             <span>Recent</span>
           </div>
           <div className="recent-chat-entry">
-            {previousPrompts.map((title, index) => (
-              <RecentEntry title={title} key={index} />
-            ))}
+            {
+              previousPrompts.map((title, index) => (
+                <RecentEntry title={title} key={index} />
+              ))
+            }
           </div>
         </div>
       </div>
-      <div className="bottom flex flex-col text-[14px]">
-        <div className="bottom-item">
-          <LuMessageCircleQuestion style={iconsStyle} />
-          {extended ? <span>Help</span> : null}
-        </div>
-        <div className="bottom-item">
-          <LuHistory style={iconsStyle} />
-          {extended ? <span>Activity</span> : null}
-        </div>
-        <div className="bottom-item">
-          <LuSettings style={iconsStyle} />
-          {extended ? <span>Settings</span> : null}
-        </div>
+      <div className="bottom flex flex-col text-[14px] text-[#585858]">
+        {
+          [
+            { icon: LuMessageCircleQuestion, label: "Help" },
+            { icon: LuHistory, label: "Activity" },
+            { icon: LuSettings, label: "Settings" }
+          ].map((item, index) => (
+            <div className="bottom-item flex justify-start items-center gap-2.5 p-3.75 rounded-full cursor-pointer hover:bg-[#e6eaf1]" key={index}>
+              <item.icon style={iconsStyle} />
+              {extended ? <span>{item.label}</span> : null}
+            </div>
+          ))
+        }
       </div>
     </div>
   );

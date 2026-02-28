@@ -8,29 +8,23 @@ const AppProvider = ({ children }) => {
     const [previousPrompts, setPreviousPrompts] = useState([]);
     const [showResults, setShowResults] = useState(false);
     const [loading, setLoading] = useState(false);
-    // keep a list of conversation results rather than a single string
     const [results, setResults] = useState([]);
+    const [history, setHistory] = useState([]);
+    const [chatID, setChatID] = useState(null);
 
     const contextValue = {
-        input,
-        setInput,
-        recentPrompts,
-        setRecentPrompts,
-        previousPrompts,
-        setPreviousPrompts,
-        showResults,
-        setShowResults,
-        results,
-        setResults,
-        loading,
-        setLoading,
+        input, setInput,
+        recentPrompts, setRecentPrompts,
+        previousPrompts, setPreviousPrompts,
+        showResults, setShowResults,
+        results, setResults,
+        loading, setLoading,
         onSent: async (prompt) => {
             setLoading(true);
             setShowResults(true);
             setRecentPrompts(prompt);
             setPreviousPrompts(prev => [...prev, prompt]);
             setInput("");
-            // send and append the new response to results array
             const response = await sendMessage(prompt);
             setLoading(false);
             setResults(prev => [...prev, { prompt, response, load: false }]);
