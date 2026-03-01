@@ -4,17 +4,17 @@ import UserPrompt from "./UserPrompt";
 import GeminiResponse from "./GeminiResponse";
 import MarkdownComponent from "./MarkdownComponent";
 
-function SubResult({ recentPrompts, response, load }) {
+function SubResult({ recentPrompts, response, shouldType = false }) {
     const formatted = useMemo(() => formatGeminiResponse(response), [response]);
     const [typed, setTyped] = useState("");
 
     useEffect(() => {
-        if (load) {
+        if (!formatted) {
             setTyped("");
             return;
         }
-        if (!formatted) {
-            setTyped("");
+        if (!shouldType) {
+            setTyped(formatted);
             return;
         }
         let index = 0;
@@ -26,12 +26,12 @@ function SubResult({ recentPrompts, response, load }) {
             }
         }, 10);
         return () => clearInterval(timer);
-    }, [load, formatted]);
+    }, [formatted, shouldType]);
 
     return (
         <div className="sub-result">
             <UserPrompt recentPrompts={recentPrompts} />
-            <GeminiResponse display={<MarkdownComponent typedResult={typed} />} load={load} />
+            <GeminiResponse display={<MarkdownComponent typedResult={typed} />} loading={false} />
         </div>
     );
 }

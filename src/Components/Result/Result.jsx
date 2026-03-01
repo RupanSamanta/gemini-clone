@@ -6,30 +6,28 @@ import UserPrompt from "./UserPrompt";
 import GeminiResponse from "./GeminiResponse";
 
 function Result() {
-  const { results, loading, recentPrompts } = useContext(AppContext);
-  
-  console.log(results);
-  
-  return (
-    <div className="result-container p-[0_5%] max-h-[70vh] overflow-y-auto [&::-webkit-scrollbar]:hidden">
-      {results.map((item, index) => (
-        <SubResult
-          key={index}
-          recentPrompts={item.prompt}
-          response={item.response}
-          load={item.load}
-        />
-      ))}
+    const { results, loading, recentPrompts } = useContext(AppContext);
 
-      {/* show loader while waiting for the next answer */}
-      {loading && (
-        <div className="sub-result">
-          <UserPrompt recentPrompts={recentPrompts} />
-          <GeminiResponse display={<Loader />} load={loading} />
+    return (
+        <div className="result-container p-[0_5%] max-h-[70vh] overflow-y-auto [&::-webkit-scrollbar]:hidden">
+            {results.map((item, index) => (
+                <SubResult
+                    key={index}
+                    recentPrompts={item.prompt}
+                    response={item.response}
+                    shouldType={item.shouldType}
+                />
+            ))}
+
+            {/* show loader while waiting for the next answer */}
+            {loading && (
+                <div className="sub-result">
+                    <UserPrompt recentPrompts={recentPrompts} />
+                    <GeminiResponse display={<Loader />} loading={loading} />
+                </div>
+            )}
         </div>
-      )}
-    </div>
-  );
+    );
 }
 
 export default Result;

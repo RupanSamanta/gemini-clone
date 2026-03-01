@@ -31,7 +31,7 @@ const AppProvider = ({ children }) => {
             setInput("");
             const response = await sendMessage(prompt);
             setLoading(false);
-            const newMessage = { prompt, response, load: false };
+            const newMessage = { prompt, response, shouldType: true };
 
             setResults(prev => {
                 const updatedResults = [...prev, newMessage];
