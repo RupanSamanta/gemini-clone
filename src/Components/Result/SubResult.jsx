@@ -4,7 +4,7 @@ import UserPrompt from "./UserPrompt";
 import GeminiResponse from "./GeminiResponse";
 import MarkdownComponent from "./MarkdownComponent";
 
-function SubResult({ recentPrompts, response, shouldType = false }) {
+function SubResult({ recentPrompts, response, shouldType = false, onTyping }) {
     const formatted = useMemo(() => formatGeminiResponse(response), [response]);
     const [typed, setTyped] = useState("");
 
@@ -27,6 +27,10 @@ function SubResult({ recentPrompts, response, shouldType = false }) {
         }, 10);
         return () => clearInterval(timer);
     }, [formatted, shouldType]);
+
+    useEffect(() => {
+        onTyping?.();
+    }, [typed, onTyping]);
 
     return (
         <div className="sub-result">

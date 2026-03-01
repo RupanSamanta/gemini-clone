@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useCallback, useContext, useEffect, useRef } from "react";
 import { AppContext } from "../../Context/AppContext.js";
 import SubResult from "./SubResult.jsx";
 import Loader from "../Main/Loader.jsx";
@@ -7,6 +7,15 @@ import GeminiResponse from "./GeminiResponse";
 
 function Result() {
     const { results, loading, recentPrompts } = useContext(AppContext);
+    const endRef = useRef(null);
+
+    const scrollToBottom = useCallback(() => {
+        endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+    }, []);
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [results, loading, scrollToBottom]);
 
     return (
         <div className="result-container p-[0_5%] max-h-[70vh] overflow-y-auto [&::-webkit-scrollbar]:hidden">
@@ -16,6 +25,7 @@ function Result() {
                     recentPrompts={item.prompt}
                     response={item.response}
                     shouldType={item.shouldType}
+                    onTyping={scrollToBottom}
                 />
             ))}
 
@@ -26,6 +36,8 @@ function Result() {
                     <GeminiResponse display={<Loader />} loading={loading} />
                 </div>
             )}
+            
+            <div ref={endRef}></div>
         </div>
     );
 }
