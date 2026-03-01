@@ -7,7 +7,9 @@ import GeminiResponse from "./GeminiResponse";
 
 function Result() {
   const { results, loading, recentPrompts } = useContext(AppContext);
-
+  
+  console.log(results);
+  
   return (
     <div className="result-container p-[0_5%] max-h-[70vh] overflow-y-auto [&::-webkit-scrollbar]:hidden">
       {results.map((item, index) => (

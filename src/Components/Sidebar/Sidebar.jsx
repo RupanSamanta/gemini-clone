@@ -24,10 +24,11 @@ const Sidebar = () => {
         <div
           className="menu-bar size-fit px-3.75 py-3.75 cursor-pointer rounded-full hover:bg-[#e6eaf1]"
           onClick={() => setExtended((prev) => !prev)}
+          title="Expand Menu"
         >
           <LuMenu style={iconsStyle} className="menu" />
         </div>
-        <div className="new-chat mt-8.5 inline-flex items-center gap-2.5 px-3.75 py-3.75 bg-[#e6eaf1] rounded-full text-[14px] text-[#585858] cursor-pointer whitespace-nowrap"
+        <div className="new-chat mt-8.5 inline-flex items-center gap-2.5 p-3.75 bg-[#e6eaf1] rounded-full text-[14px] text-[#585858] cursor-pointer truncate" title="New Chat"
           onClick={() => {
             setLoading(false);
             setShowResults(false);
@@ -50,14 +51,14 @@ const Sidebar = () => {
           {extended ? <span>New Chat</span> : null}
         </div>
         <div className={`recent-chat flex-col ${extended ? "flex" : "hidden"}`}>
-          <div className="recent-title mt-8.5 mb-4 px-2.5 flex justify-start items-center gap-2.5 text-[14px] text-[#585858]">
+          <div className="recent-title mt-8.5 mb-4 px-2.5 flex justify-start items-center gap-2.5 text-[14px] text-[#585858] truncate">
             <LuMessageSquare style={iconsStyle} />
             <span>Recent</span>
           </div>
           <div className="recent-chat-entry text-[#585858]">
             {
               history.map((chat, index) => (
-                <RecentEntry title={chat.title} key={index} />
+                <RecentEntry title={chat.title} id={chat.id} key={index} />
               ))
             }
           </div>
@@ -70,7 +71,7 @@ const Sidebar = () => {
             { icon: LuHistory, label: "Activity" },
             { icon: LuSettings, label: "Settings" }
           ].map((item, index) => (
-            <div className="bottom-item flex justify-start items-center gap-2.5 p-3.75 rounded-full cursor-pointer hover:bg-[#e6eaf1]" key={index}>
+            <div className="bottom-item flex justify-start items-center gap-2.5 p-3.75 rounded-full cursor-pointer truncate hover:bg-[#e6eaf1]" key={index} title={item.label}>
               <item.icon style={iconsStyle} />
               {extended ? <span>{item.label}</span> : null}
             </div>

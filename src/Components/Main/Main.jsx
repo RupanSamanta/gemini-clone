@@ -53,7 +53,7 @@ const Main = () => {
                 <div className="main-bottom absolute bottom-0 w-full max-w-225 p-[0_2px] m-auto">
                     <div className="search-box flex items-center justify-between gap-5 bg-[#f0f4f9] rounded-[50px] p-[10px_20px]">
                         <input type="text" onChange={(e) => setInput(e.target.value)} value={input} name="search" id="search-input" placeholder="Ask anything..." disabled={loading} className="flex-1 bg-transparent border-none outline-none p-1.5 text-[17px]" />
-                        <div className="icons flex items-center gap-3.75">
+                        <div className="icons flex items-center gap-3.75" title="Submit">
                             <LuSendHorizontal onClick={() => { onSent(input) }} style={{ opacity: loading || input.trim() === '' ? 0.5 : 1, cursor: loading || input.trim() === '' ? 'not-allowed' : 'pointer' }} />
                         </div>
                     </div>

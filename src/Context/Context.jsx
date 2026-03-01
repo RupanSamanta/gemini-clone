@@ -36,7 +36,7 @@ const AppProvider = ({ children }) => {
             setResults(prev => {
                 const updatedResults = [...prev, newMessage];
                 setHistory(prevHistory => {
-                    const activeChatId = chatId || new Date().toString();
+                    const activeChatId = chatId || new Date().getTime().toString();
                     if (!chatId) setChatId(activeChatId);
 
                     return prevHistory.map(chat => {
