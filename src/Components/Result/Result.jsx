@@ -18,7 +18,7 @@ function Result() {
     }, [results, loading, scrollToBottom]);
 
     return (
-        <div className="result-container p-[0_5%] max-h-[70vh] overflow-y-auto [&::-webkit-scrollbar]:hidden">
+        <div className="result-container max-h-[70vh] overflow-y-auto [&::-webkit-scrollbar]:hidden">
             {results.map((item, index) => (
                 <SubResult
                     key={index}

@@ -44,7 +44,7 @@ const AppProvider = ({ children }) => {
                             return {
                                 ...chat,
                                 id: activeChatId,
-                                title: chat.title || prompt.slice(0, 30),
+                                title: (chat.title || prompt.slice(0, 30)).split(' ').map(s => s[0].toUpperCase() + s.slice(1)).join(' '),
                                 messages: updatedResults
                             };
                         }

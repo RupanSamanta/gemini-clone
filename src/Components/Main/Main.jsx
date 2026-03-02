@@ -17,16 +17,16 @@ const Main = () => {
         <div className="main flex-1 min-h-screen pb-[15vh] relative">
             <nav className="navbar flex items-center justify-between text-[22px] p-5 text-[#585858]">
                 <span className="main font-medium">Gemini</span>
-                <span className="user-image inline-block size-10 border rounded-full bg-[url(/user_icon.png)] bg-cover bg-no-repeat bg-center" />
+                <span className="user-image inline-block size-10 rounded-full bg-[url(/user_icon.png)] bg-cover bg-no-repeat bg-center" />
             </nav>
             <div className="main-container max-w-225 h-full m-auto overflow-y-auto">
                 {
                     !showResults ? <>
-                        <div className="greet m-[50px 0] text-[56px] text-[#c4c7c5] font-medium p-5">
+                        <div className="greet m-[50px 0] text-[56px] text-[#c4c7c5] font-medium p-[20px_0]">
                             <p><span className="bg-size-[100%] bg-linear-16 from-[#4b90ff] to-[#ff5546] bg-clip-text text-transparent">Hello, Dev.</span></p>
                             <p>How can I help you today?</p>
                         </div>
-                        <div className="card-container grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-3.75 p-5">
+                        <div className="card-container grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-3.75 p-[20px_0] mt-5">
                             {
                                 [
                                     {
@@ -50,7 +50,7 @@ const Main = () => {
                         <Result />
                 }
 
-                <div className="main-bottom absolute bottom-0 w-full max-w-225 p-[0_2px] m-auto">
+                <div className="main-bottom absolute bottom-0 w-full max-w-225 m-auto p-0">
                     <div className="search-box flex items-center justify-between gap-5 bg-[#f0f4f9] rounded-[50px] p-[10px_20px]">
                         <input type="text" onChange={(e) => setInput(e.target.value)} value={input} name="search" id="search-input" placeholder="Ask anything..." disabled={loading} className="flex-1 bg-transparent border-none outline-none p-1.5 text-[17px]" />
                         <div className="icons flex items-center gap-3.75" title="Submit">
