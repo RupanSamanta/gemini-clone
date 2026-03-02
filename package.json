@@ -2,7 +2,6 @@
   "name": "gemini-clone",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://rupansamanta.github.io/gemini-clone/",
   "type": "module",
   "scripts": {
     "dev": "vite",

@@ -1,5 +1,3 @@
-import { GoogleGenAI } from "@google/genai";
-
 const MODEL = "gemini-3-flash-preview";
 
 export const handler = async (event) => {
@@ -29,19 +27,45 @@ export const handler = async (event) => {
       };
     }
 
-    const ai = new GoogleGenAI({ apiKey });
-    const result = await ai.models.generateContent({
-      model: MODEL,
-      contents: prompt,
-      config: {
-        thinkingLevel: "minimal",
-        temperature: 0.7,
-      },
-    });
+    const geminiResponse = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [{ text: prompt }],
+            },
+          ],
+          generationConfig: {
+            temperature: 0.7,
+          },
+        }),
+      }
+    );
+
+    const payload = await geminiResponse.json().catch(() => ({}));
+    if (!geminiResponse.ok) {
+      return {
+        statusCode: geminiResponse.status || 500,
+        body: JSON.stringify({
+          error:
+            payload?.error?.message ||
+            `Gemini API request failed with status ${geminiResponse.status}`,
+        }),
+      };
+    }
+
+    const text =
+      payload?.candidates?.[0]?.content?.parts
+        ?.map((p) => p?.text || "")
+        .join("")
+        .trim() || "";
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ text: result.text || "" }),
+      body: JSON.stringify({ text }),
     };
   } catch (error) {
     return {
