@@ -3,6 +3,7 @@ import sendMessage from '../config/Chat.js';
 import { AppContext } from './AppContext.js';
 
 const AppProvider = ({ children }) => {
+    const [extended, setExtended] = useState(false);
     const [input, setInput] = useState("");
     const [recentPrompts, setRecentPrompts] = useState(null);
     const [showResults, setShowResults] = useState(false);
@@ -16,6 +17,7 @@ const AppProvider = ({ children }) => {
     const [chatId, setChatId] = useState(null);
 
     const contextValue = {
+        extended, setExtended,
         input, setInput,
         recentPrompts, setRecentPrompts,
         showResults, setShowResults,
@@ -40,11 +42,11 @@ const AppProvider = ({ children }) => {
                     if (!chatId) setChatId(activeChatId);
 
                     return prevHistory.map(chat => {
-                        if (!chat.id) {
+                        if (!chat.id) {                            
                             return {
                                 ...chat,
                                 id: activeChatId,
-                                title: (chat.title || prompt.slice(0, 30)).split(' ').map(s => s[0].toUpperCase() + s.slice(1)).join(' '),
+                                title: (chat.title || prompt.slice(0, 30)).trim().split(' ').map(s => s[0].toUpperCase() + s.slice(1)).join(' '),
                                 messages: updatedResults
                             };
                         }

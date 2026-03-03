@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { LuCompass, LuNotebookText, LuMic, LuLightbulb, LuSendHorizontal, LuCodeXml, LuImagePlus } from "react-icons/lu";
+import { LuMenu, LuCompass, LuNotebookText, LuMic, LuLightbulb, LuSendHorizontal, LuCodeXml, LuImagePlus } from "react-icons/lu";
 import { AppContext } from "../../Context/AppContext";
 import Card from "./Card";
 import Result from "../Result/Result";
@@ -7,26 +7,29 @@ import Result from "../Result/Result";
 const Main = () => {
 
     const { input, setInput,
-            showResults,
-            onSent 
+        showResults,
+        onSent
     } = useContext(AppContext);
 
-    const { loading } = useContext(AppContext);
+    const { loading, extended, setExtended } = useContext(AppContext);
 
     return (
         <div className="main flex-1 min-h-screen pb-[15vh] relative">
-            <nav className="navbar flex items-center justify-between text-[22px] p-5 text-[#585858]">
-                <span className="main font-medium">Gemini</span>
-                <span className="user-image inline-block size-10 rounded-full bg-[url(/user_icon.png)] bg-cover bg-no-repeat bg-center" />
+            <nav className="navbar flex items-center justify-between text-[16px] sm:text-[22px] p-5 text-[#585858]">
+                <p className="flex items-center gap-2">
+                    {!extended && <LuMenu className="menu size-5 sm:size-5.5 sm:hidden shrink-0 stroke-[#585858]" onClick={() => setExtended((prev) => !prev)}/>}
+                    <span className="font-medium">Gemini</span>
+                </p>
+                <p className="user-image inline-block size-5.5 sm:size-10 rounded-full bg-[url(/user_icon.png)] bg-cover bg-no-repeat bg-center"></p>
             </nav>
-            <div className="main-container max-w-225 h-full m-auto overflow-y-auto">
+            <div className="main-container max-w-225 h-full m-auto overflow-y-auto px-5">
                 {
                     !showResults ? <>
-                        <div className="greet m-[50px 0] text-[56px] text-[#c4c7c5] font-medium p-[20px_0]">
-                            <p><span className="bg-size-[100%] bg-linear-16 from-[#4b90ff] to-[#ff5546] bg-clip-text text-transparent">Hello, Dev.</span></p>
-                            <p>How can I help you today?</p>
+                        <div className="greet m-[50px_0] text-3xl sm:text-[56px] text-[#c4c7c5] font-medium p-[20px_0] *: sm:leading-17">
+                            <p><span className="bg-size-[100%] bg-linear-to-r from-[#4b90ff] to-[#ff5546] bg-clip-text text-transparent">Hello, Dev.</span></p>
+                            <p className="mt-4">How can I help you today?</p>
                         </div>
-                        <div className="card-container grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-3.75 p-[20px_0] mt-5">
+                        <div className="card-container hidden sm:grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-3.75 p-[20px_0]">
                             {
                                 [
                                     {
@@ -50,14 +53,14 @@ const Main = () => {
                         <Result />
                 }
 
-                <div className="main-bottom absolute bottom-0 w-full max-w-225 m-auto p-0">
-                    <div className="search-box flex items-center justify-between gap-5 bg-[#f0f4f9] rounded-[50px] p-[10px_20px]">
-                        <input type="text" onChange={(e) => setInput(e.target.value)} value={input} name="search" id="search-input" placeholder="Ask anything..." disabled={loading} className="flex-1 bg-transparent border-none outline-none p-1.5 text-[17px]" />
+                <div className="main-bottom absolute left-1/2 bottom-0 -translate-x-1/2 w-[calc(100%-40px)] max-w-[calc(var(--spacing)*225-40px)] mb-1">
+                    <div className="search-box flex items-center justify-between gap-5 bg-[#f0f4f9] rounded-[50px] p-1 px-4 sm:p-[10px_20px]">
+                        <input type="text" onChange={(e) => setInput(e.target.value)} value={input} name="search" id="search-input" placeholder="Ask anything..." disabled={loading} className="flex-1 bg-transparent border-none outline-none p-1.5 text-[14px] sm:text-[17px]" />
                         <div className="icons flex items-center gap-3.75" title="Submit">
-                            <LuSendHorizontal onClick={() => { onSent(input) }} style={{ opacity: loading || input.trim() === '' ? 0.5 : 1, cursor: loading || input.trim() === '' ? 'not-allowed' : 'pointer' }} />
+                            {input.length != 0 && <LuSendHorizontal onClick={() => { onSent(input) }} className="size-4 animate-[fadeIn_0.25s_ease-in_1]" />}
                         </div>
                     </div>
-                    <div className="bottom-info text-[13px] m-[15px_auto] text-center font-light text-[#585858]">
+                    <div className="bottom-info text-[8px] sm:text-[13px] m-[15px_auto] text-center font-light text-[#585858]">
                         <p>Gemini may display inaccurate info, including about people, so double-check its responses. Your privacy and Gemini Apps</p>
                     </div>
                 </div>

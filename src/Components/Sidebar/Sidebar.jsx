@@ -1,6 +1,6 @@
 import { LuMenu, LuPlus, LuSettings, LuMessageSquare, LuMessageCircleQuestion, LuHistory } from "react-icons/lu";
 import RecentEntry from "./RecentEntry";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AppContext } from "../../Context/AppContext";
 
 const Sidebar = () => {
@@ -13,16 +13,15 @@ const Sidebar = () => {
         stroke: "#585858"
     };
 
-    const [extended, setExtended] = useState(false);
-    const { history, setLoading, setShowResults, setResults, setChatId, setHistory } = useContext(AppContext);
+    const { history, setLoading, setShowResults, setResults, setChatId, setHistory, extended, setExtended } = useContext(AppContext);
 
     return (
         <div
-            className={`sidebar ${extended ? "w-50" : "w-[81.6px]"} min-h-screen flex flex-col bg-[#f0f4f9] py-6.25 px-3.75 transition-all duration-300 ease-in-out`}
+            className={`sidebar ${extended ? "w-60 sm:w-50 translate-x-0" : "w-[81.6px]"} min-h-screen -translate-x-full sm:translate-x-0 absolute sm:static flex flex-col bg-[#f0f4f9] py-5 px-3.75 z-50`}
         >
             <div className="top flex flex-1 flex-col min-h-0">
                 <div
-                    className="menu-bar size-fit px-3.75 py-3.75 cursor-pointer rounded-full hover:bg-[#e6eaf1]"
+                    className="menu-bar size-fit p-3.75 cursor-pointer rounded-full hover:bg-[#e6eaf1]"
                     onClick={() => setExtended((prev) => !prev)}
                     title="Expand Menu"
                 >
