@@ -25,8 +25,8 @@ const Main = () => {
             <div className="main-container max-w-225 h-full m-auto overflow-y-auto px-5">
                 {
                     !showResults ? <>
-                        <div className="greet mt-6 sm:m-[50px_0] text-[#c4c7c5] font-medium p-[20px_0] *: sm:leading-17">
-                            <p><span className="bg-size-[100%] bg-linear-to-r from-[#4b90ff] to-[#ff5546] bg-clip-text text-transparent text-2xl sm:text-[56px]">Hello, Dev.</span></p>
+                        <div className="greet mt-10 sm:m-[50px_0] text-[#c4c7c5] font-medium p-[20px_0] *: sm:leading-17">
+                            <p><span className="greet-gradient text-2xl sm:text-[56px]">Hello, Dev.</span></p>
                             <p className="sm:mt-4 text-3xl sm:text-[56px]">How can I help you today?</p>
                         </div>
                         <div className="card-container grid grid-cols-2 sm:grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-3.75 p-[20px_0]">

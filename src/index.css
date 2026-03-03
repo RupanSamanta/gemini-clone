@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Google Sans", sans-serif;
+  --font-sans: "Google Sans", "Noto Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
 @layer base {
@@ -12,6 +12,19 @@
 }
 
 @layer components {
+  .greet-gradient {
+    color: #4b90ff;
+  }
+
+  @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    .greet-gradient {
+      background: linear-gradient(to right, #4b90ff, #ff5546);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+    }
+  }
   
   .main .search-box .icons svg {
     width: 22px;
