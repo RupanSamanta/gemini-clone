@@ -14,7 +14,7 @@ const Main = () => {
     const { loading, extended, setExtended } = useContext(AppContext);
 
     return (
-        <div className="main flex-1 min-h-screen pb-[15vh] relative">
+        <div className="main flex-1 min-h-[100svh] min-h-[100dvh] pb-[15vh] relative">
             <nav className="navbar flex items-center justify-between text-[22px] p-5 text-[#585858]">
                 <p className="flex items-center gap-2">
                     {!extended && <LuMenu className="menu size-5.5 sm:hidden shrink-0 stroke-[#585858]" onClick={() => setExtended((prev) => !prev)}/>}
@@ -53,7 +53,7 @@ const Main = () => {
                         <Result />
                 }
 
-                <div className="main-bottom absolute left-1/2 bottom-0 -translate-x-1/2 w-[calc(100%-40px)] max-w-[calc(var(--spacing)*225-40px)] mb-1">
+                <div className="main-bottom absolute left-1/2 bottom-0 -translate-x-1/2 w-[calc(100%-40px)] max-w-[calc(var(--spacing)*225-40px)] mb-1 pb-[env(safe-area-inset-bottom)]">
                     <div className="search-box flex items-center justify-between gap-5 bg-[#f0f4f9] rounded-[50px] p-[10px_20px]">
                         <input type="text" onChange={(e) => setInput(e.target.value)} value={input} name="search" id="search-input" placeholder="Ask anything..." disabled={loading} className="flex-1 bg-transparent border-none outline-none p-1.5 text-[17px]" />
                         <div className="icons flex items-center gap-3.75" title="Submit">

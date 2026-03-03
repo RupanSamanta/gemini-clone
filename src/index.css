@@ -41,12 +41,19 @@
 }
 
 html, body {
-  overflow: hidden;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  overflow-y: auto;
 }
 
 #root {
-  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
   display: flex;
+  overflow: hidden;
   animation: fadeIn 1s ease-in 1;
 }
 

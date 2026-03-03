@@ -17,7 +17,7 @@ const Sidebar = () => {
 
     return (
         <div
-            className={`sidebar ${extended ? "w-60 sm:w-50 translate-x-0" : "w-[81.6px]"} min-h-screen -translate-x-full sm:translate-x-0 absolute sm:static flex flex-col bg-[#f0f4f9] py-5 px-3.75 z-50`}
+            className={`sidebar ${extended ? "w-60 sm:w-50 translate-x-0" : "w-[81.6px]"} min-h-[100svh] min-h-[100dvh] -translate-x-full sm:translate-x-0 absolute sm:static flex flex-col bg-[#f0f4f9] py-5 px-3.75 z-50`}
         >
             <div className="top flex flex-1 flex-col min-h-0">
                 <div
